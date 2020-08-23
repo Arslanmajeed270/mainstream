@@ -76,3 +76,10 @@ function addVideoStream(video, stream){
     })
     videoGrid.append(video)
 }
+
+function linkHandler(e){
+    console.log("i am here");
+    e.preventDefault();
+    let link = document.getElementById('affiliatedUrl').value;
+    console.log("checking link value: ", link);
+}

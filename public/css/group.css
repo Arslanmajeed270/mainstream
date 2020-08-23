@@ -93,7 +93,7 @@ h3 {
   float: left;
   height: 411px;
   overflow-x: hidden;
-  overflow-y: auto;
+  overflow-y: hidden;
   width: 100%;
   border-left: 1px solid rgba(128, 128, 128, 0.32);
   border-bottom: 1px solid rgba(128, 128, 128, 0.32);
@@ -108,6 +108,7 @@ h3 {
   -moz-hyphens: auto;
   -webkit-hyphens: auto;
   hyphens: auto;
+  position: relative;
 }
 
 .chat_area li {
@@ -119,9 +120,9 @@ h3 {
   width: 40px;
 }
 
-.chat_area .chat-body1 {
+/* .chat_area .chat-body1 {
   margin-left: 50px;
-}
+} */
 
 .chat_area li:last-child {
   padding-bottom: 10px;
@@ -425,4 +426,74 @@ member_list li:hover {
 .dropdown-img {
   width: 40px;
   height: 40px;
+}
+
+.list-unstyled {
+  padding-left: 0;
+  max-height: 280px;
+  list-style: none;
+  position: absolute;
+  z-index: 999;
+  top: 0;
+  left: 0px;
+  right: 0px; 
+  color: white;
+  overflow-y: scroll;
+  width: 525px;
+  margin: 0 auto;
+}
+
+
+
+
+
+#video_btns_link{
+  margin: 0;
+  padding: 0;
+  max-width: 551px;
+  margin: auto;
+  position: relative;
+  top: -64px;
+}
+#video_btns_link li {
+  list-style: none;
+  display: inline-block;
+  position: relative;
+  
+}
+#video_btns_link li:first-child {
+  float: left;
+  display: none;
+}
+#video_btns_link li:last-child {
+  float: right;
+}
+#video_btns_link li:first-child button{
+  background-color: #ef2141;
+  color: #fff;
+  padding: 9px 29px;
+  border: 2px solid transparent;
+}
+#video_btns_link li:last-child button{
+  background-color: #f5a623;
+  color: #fff;
+  padding: 9px 29px;
+  border: 2px solid transparent;
+  position: relative;
+}
+#video_btns_link li:last-child span{
+  position: absolute;
+  top: -23px;
+  right: 20px;
+  color: #fff;
+  font-weight: bold;
+  font-size: 16px;
+  display: block;
+  width: 100%;
+}
+
+
+
+#video_btns_link li button:hover{
+  border: 2px solid white;
 }

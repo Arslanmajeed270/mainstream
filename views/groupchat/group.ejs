@@ -25,6 +25,7 @@
       #video_grid{
         width: 80%;
         margin: auto;
+        position: relative;
       }
 
       video {
@@ -174,6 +175,42 @@
 
                   <div id="video_grid">
                     
+                  </div>
+                  <ul id="video_btns_link">
+                    <li><button id="">Start/Stop</button></li>
+                    <li>
+                      <span >Url Affilited  link</span>
+                      <button id=""  data-toggle="modal" data-target="#linkModal ">Link</button></li>
+
+                  </ul>
+                </div>
+
+
+
+                <!-- Link Model  -->
+                <div class="modal fade" id="linkModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <form onsubmit="linkHandler(this);" method="post">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Affilited URL</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                          <div class="form-group">
+                            <label for="affiliatedUrl" style="float: left;">Email address</label>
+                            <input type="text" class="form-control" id="affiliatedUrl" aria-describedby="emailHelp" placeholder="Enter Affilited URL">
+                            <small id="emailHelp" class="form-text text-muted" style="float: left;" >Enter Url to share with other members.</small>
+                          </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                  </form>
                   </div>
                 </div>
 
