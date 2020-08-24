@@ -1,10 +1,12 @@
-module.exports = function (Users, async, Channel, Message, FriendResult, Group) {
+module.exports = function (Users, async, Channel,GroupLink, Message, FriendResult, Group) {
   return {
     SetRouting: function (router) {
       router.get("/group/:name", this.groupPage);
       router.post("/group/:name", this.groupPostPage);
 
       router.get("/logout", this.logout);
+
+      router.post('/adding-link', this.linkHandler);
     },
 
     groupPage: function (req, res) {
@@ -87,30 +89,39 @@ module.exports = function (Users, async, Channel, Message, FriendResult, Group) 
           const result2 = results[1];
           const result3 = results[2];
           let admin = false;
+          console.log("checking roomId: ", result1);
 
           Channel.findOne({ createdBy: result1._id })
           .then( channalIs => {
+            console.log("channalIs: ", channalIs);
             if(channalIs){
               admin = true;
             }
-            
-          res.render("groupchat/group", {
-            title: "Mainstream - Group",
-            user: req.user,
-            groupName: name,
-            data: result1,
-            chat: result2,
-            groupMsg: result3,
-            roomName: name,
-            userName: result1.username,
-            admin: admin
-          });
+            GroupLink.findOne({ roomName: req.params.name })
+            .then(link => {
+              console.log("checking link: ", link);
+              let Link = '';
+              if(link){
+                Link = link.link;
+              }
+              console.log("checking LInk: ", Link)
+              res.render("groupchat/group", {
+                title: "Mainstream - Group",
+                user: req.user,
+                groupName: name,
+                data: result1,
+                chat: result2,
+                groupMsg: result3,
+                roomName: name,
+                userName: result1.username,
+                admin: admin,
+                affiliatedLink: Link
+              });
 
-
+            })
           })
           .catch(err => {
-            console.log("checking err: ", err
-            );
+            console.log("checking err: ", err);
           })
 
         }
@@ -140,6 +151,26 @@ module.exports = function (Users, async, Channel, Message, FriendResult, Group) 
           res.redirect("/group/" + req.params.name);
         }
       );
+    },
+
+    linkHandler: async function (req, res) {
+
+      try{
+        let Link;
+        Link = await GroupLink.findOne({ roomId: req.body.roomId });
+        if(!Link){
+          Link = new GroupLink();
+          Link.roomId = req.body.roomId;
+          Link.roomName = req.body.roomName;
+        }
+        Link.link = req.body.link;
+        Link.createdAt = new Date();
+        const result =  await Link.save();
+        res.json({link: result});
+       
+      }catch(err){
+        console.log("checking errors: ", err);
+      }
     },
 
     logout: function (req, res) {

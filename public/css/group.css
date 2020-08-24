@@ -497,3 +497,14 @@ member_list li:hover {
 #video_btns_link li button:hover{
   border: 2px solid white;
 }
+
+.affiliatedUrlAnchor {
+
+  background-color: #f5a623;
+  color: #fff;
+  padding: 9px 29px;
+  border: 2px solid transparent;
+  position: relative;
+  top: 14px;
+
+}

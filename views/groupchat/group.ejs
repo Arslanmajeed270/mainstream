@@ -180,7 +180,13 @@
                     <li><button id="">Start/Stop</button></li>
                     <li>
                       <span >Url Affilited  link</span>
-                      <button id=""  data-toggle="modal" data-target="#linkModal ">Link</button></li>
+
+                      <% if (admin) { %>
+                        <button data-toggle="modal" data-target="#linkModal ">Link</button>
+                      <% } else { %>
+                        <a href="<%= affiliatedLink  %>" class="affiliatedUrlAnchor">Link</a>
+                        <% } %>
+                    </li>
 
                   </ul>
                 </div>
@@ -191,7 +197,7 @@
                 <div class="modal fade" id="linkModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                      <form onsubmit="linkHandler(this);" method="post">
+                      <form id="linkForm" method="post">
                       <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLongTitle">Affilited URL</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -200,14 +206,14 @@
                       </div>
                       <div class="modal-body">
                           <div class="form-group">
-                            <label for="affiliatedUrl" style="float: left;">Email address</label>
+                            <label for="affiliatedUrl" style="float: left;">Affilited URL</label>
                             <input type="text" class="form-control" id="affiliatedUrl" aria-describedby="emailHelp" placeholder="Enter Affilited URL">
                             <small id="emailHelp" class="form-text text-muted" style="float: left;" >Enter Url to share with other members.</small>
                           </div>
                       </div>
                       <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary" data-dismiss="modal">Save changes</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button type="button" id="closeModel" class="btn btn-secondary" data-dismiss="modal">Close</button>
                       </div>
                     </div>
                   </form>
@@ -349,5 +355,33 @@
 
    
     <script  defer type="text/javascript" src='/js/videoStream/videoStream.js'></script>
+    <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer>
+        $('#linkForm').on('submit', function(event) {
+          event.preventDefault();
+          var linkValue =  $("#affiliatedUrl").val();
+          var roomId = "<%= data._id %>";
+          console.log("checking roomId: ", roomId);
+          console.log("checking linkValue: ",linkValue );
+
+          $.ajax({
+            url:'/adding-link',
+            type:'post',
+            data:{
+              roomId: roomId,
+              roomName: ROOM_ID,
+              link: linkValue
+            },
+            success: function(response) {
+              console.log("checking response: ", response);
+              $("#linkModal #closeModel").click()
+            },
+            error: function(request, status, error) {
+              console.log("checking Error: "+ error);
+            }
+          });
+
+        });
+    </script>
   </body>
 </html>

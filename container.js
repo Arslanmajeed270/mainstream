@@ -12,6 +12,7 @@ const simpleDependecies = [
   ["Users", "./models/user"],
   ["Message", "./models/message"],
   ["Group", "./models/groupmessage"],
+  ["GroupLink", "./models/group-links.js"],
   ["aws", "./helpers/AWSUpload"],
   ["validator", "express-validator"],
 ];
